@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSG Guanajuato - Editor de Preguntas y Reactivos</title>
+    <link rel="stylesheet" href="/static/css/kahoot-theme.css?v=2026">
+    <link rel="stylesheet" href="/static/css/editor.css?v=2026">
+</head>
+<body style="background: radial-gradient(circle at 50% 12%, #a8e0ff 0%, #68bdf4 50%, #3098e0 100%) !important;">
+    <!-- Marca de agua de fondo con el Escudo Oficial de Salud Guanajuato (Imagen 2 como fondo) -->
+    <div class="bg-escudo-watermark"></div>
+
+    <div class="editor-app">
+        <!-- Top Header -->
+        <header class="editor-header">
+            <div class="header-left">
+                <a href="/" style="display: flex; align-items: center; text-decoration: none;" title="DVEEEyR - Volver al Inicio">
+                    <img src="/static/img/header_dveeeyr.jpg" alt="DVEEEyR" class="nav-title-banner" style="height: 38px; width: auto; max-width: 125px; aspect-ratio: 807 / 334; object-fit: contain; border: 2px solid #ffffff;">
+                </a>
+                <input type="text" id="quizTitleInput" class="quiz-title-input" placeholder="Título del Cuestionario" value="Nuevo Cuestionario">
+            </div>
+
+            <div class="header-center">
+                <select id="quizSelectorDropdown" class="quiz-selector-dropdown" title="Cambiar cuestionario"></select>
+                <button type="button" id="newQuizBtn" class="btn-kahoot btn-white" style="padding: 8px 16px; font-size: 0.95rem;">
+                    ➕ Nuevo
+                </button>
+            </div>
+
+            <div class="header-right">
+                <button type="button" id="saveQuizBtn" class="btn-kahoot btn-green" style="padding: 10px 22px; font-size: 1rem;">
+                    💾 Guardar
+                </button>
+                <button type="button" id="playQuizBtn" class="btn-kahoot btn-blue" style="padding: 10px 22px; font-size: 1rem;">
+                    🎮 Jugar Partida
+                </button>
+                <a href="/" class="icon-btn" title="Ir al Inicio" style="text-decoration: none;">🏠</a>
+            </div>
+        </header>
+
+        <!-- 3-Column Workspace -->
+        <div class="editor-workspace">
+            <!-- 1. LEFT SIDEBAR: SLIDES -->
+            <aside class="slides-sidebar">
+                <div style="font-family: 'Outfit'; font-weight: 800; font-size: 0.9rem; color: #ffd166; padding: 0 4px; text-transform: uppercase; letter-spacing: 1px;">
+                    Preguntas
+                </div>
+
+                <div id="slidesList" style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <button type="button" id="addSlideBtn" class="btn-add-slide">
+                    ➕ Añadir Pregunta
+                </button>
+            </aside>
+
+            <!-- 2. CENTER CANVAS -->
+            <main class="editor-canvas">
+                <!-- Question Title Input -->
+                <div class="question-input-wrapper">
+                    <input type="text" id="questionMainInput" class="question-main-input" placeholder="Escribe tu pregunta aquí..." autocomplete="off">
+                </div>
+
+                <!-- Media Stage / Emoji -->
+                <div class="canvas-media-stage" id="canvasMediaStage">
+                    <div class="stage-emoji-display" id="stageEmojiDisplay">🎯</div>
+                    <div class="stage-media-hint">Haz clic en el panel derecho para cambiar el icono</div>
+                </div>
+
+                <!-- 4 Kahoot Answer Boxes -->
+                <div class="editor-answers-grid" id="editorAnswersGrid">
+                    <!-- Populated dynamically with Red ▲, Blue ◆, Yellow ●, Green ■ -->
+                </div>
+            </main>
+
+            <!-- 3. RIGHT SIDEBAR: QUESTION SETTINGS -->
+            <aside class="settings-sidebar">
+                <div class="sidebar-section-title">
+                    ⚙️ Configuración
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Tipo de Pregunta</label>
+                    <select id="settingQuestionType" class="setting-select">
+                        <option value="multiple_choice">Quiz (4 Opciones)</option>
+                        <option value="true_false">Verdadero o Falso (2 Opciones)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Límite de Tiempo</label>
+                    <select id="settingTimeLimit" class="setting-select">
+                        <option value="5">5 segundos</option>
+                        <option value="10">10 segundos</option>
+                        <option value="15">15 segundos</option>
+                        <option value="20" selected>20 segundos</option>
+                        <option value="30">30 segundos</option>
+                        <option value="60">60 segundos</option>
+                        <option value="90">90 segundos</option>
+                        <option value="120">120 segundos</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Puntos de la Pregunta</label>
+                    <select id="settingPoints" class="setting-select">
+                        <option value="0">⚪ Sin Puntos (0 pts)</option>
+                        <option value="10" selected>🎯 10 puntos</option>
+                        <option value="20">🎯 20 puntos</option>
+                        <option value="50">🎯 50 puntos</option>
+                        <option value="100">⭐ 100 puntos</option>
+                        <option value="250">⭐ 250 puntos</option>
+                        <option value="500">⭐ 500 puntos</option>
+                        <option value="1000">⭐ 1,000 puntos</option>
+                        <option value="2000">⭐ 2,000 puntos</option>
+                        <option value="5000">⭐ 5,000 puntos</option>
+                        <option value="custom">✏️ Puntos Personalizados...</option>
+                    </select>
+                    <input type="number" id="customPointsInput" class="form-input" style="display: none; margin-top: 6px; padding: 8px 12px; font-weight: 800;" placeholder="Escribe puntos exactos (ej: 10, 15, 100)" min="0" max="100000" step="1">
+                </div>
+
+                <!-- Apply to All Questions Section -->
+                <div style="background: rgba(255, 255, 255, 0.08); padding: 12px; border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.18); margin-top: 6px;">
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #ffd166; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        ⚡ Aplicar a Todo el Quiz
+                    </div>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.3;">
+                        Copia el tiempo actual (<strong id="previewTime" style="color: #ffffff;">20s</strong>) y los puntos (<strong id="previewPoints" style="color: #ffffff;">1,000 pts</strong>) a todas las preguntas y guarda al instante.
+                    </p>
+                    <button type="button" id="applyAllBtn" class="btn-kahoot btn-yellow" style="width: 100%; font-size: 0.95rem; padding: 12px 10px; font-weight: 900;" title="Aplica el tiempo y los puntos actuales a todas las preguntas de este cuestionario">
+                        ⚡ Aplicar a Todas las Preguntas
+                    </button>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 6px 0;">
+
+                <div class="setting-group">
+                    <label class="setting-label">Elegir Emoji / Ilustración</label>
+                    <div class="emoji-picker-grid" id="emojiPickerGrid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <div style="margin-top: auto; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+                    <strong style="color: #ffd166;">Tip:</strong> Haz clic en el círculo con el check (✓) dentro de la tarjeta de respuesta para definir cuál es la opción correcta.
+                </div>
+            </aside>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toastNotice" class="toast-notice">
+            ¡Guardado con éxito!
+        </div>
+    </div>
+
+    <script src="/static/js/config.js?v=2026"></script>
+    <script src="/static/js/editor.js?v=4"></script>
+</body>
+</html>

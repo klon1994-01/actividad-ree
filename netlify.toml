@@ -1,0 +1,50 @@
+# ==============================================================================
+# CONFIGURACIÓN OFICIAL DE DESPLIEGUE EN NETLIFY
+# DVEEEyR - Secretaría de Salud de Guanajuato (Actividad REE)
+# ==============================================================================
+
+[build]
+  publish = "static"
+
+# Redirecciones para URLs limpias (Permite entrar a /play, /host, /editor directamente)
+[[redirects]]
+  from = "/play"
+  to = "/player.html"
+  status = 200
+
+[[redirects]]
+  from = "/host"
+  to = "/host.html"
+  status = 200
+
+[[redirects]]
+  from = "/editor"
+  to = "/editor.html"
+  status = 200
+
+[[redirects]]
+  from = "/create"
+  to = "/editor.html"
+  status = 200
+
+# Compatibilidad de rutas estáticas (/static/css -> /css, etc.)
+[[redirects]]
+  from = "/static/*"
+  to = "/:splat"
+  status = 200
+
+# Fallback para carga estática de cuestionarios si el backend está desconectado
+[[redirects]]
+  from = "/api/quizzes"
+  to = "/data/quizzes.json"
+  status = 200
+
+# Encabezados de control de caché y seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate, max-age=0"
+    Pragma = "no-cache"
+    Expires = "0"
+    X-Content-Type-Options = "nosniff"
+

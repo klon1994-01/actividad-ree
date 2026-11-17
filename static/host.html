@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSG Guanajuato - Pantalla del Presentador</title>
+    <link rel="stylesheet" href="/static/css/kahoot-theme.css?v=2026">
+    <link rel="stylesheet" href="/static/css/host.css?v=2026">
+    <script src="/static/lib/qrcode.min.js"></script>
+    <script src="/static/lib/confetti.min.js"></script>
+    <script src="/static/lib/peerjs.min.js"></script>
+    <script src="/static/js/audio.js"></script>
+    <script src="/static/js/config.js?v=2026"></script>
+    <script src="/static/js/peer-engine.js?v=2026"></script>
+</head>
+<body style="background: radial-gradient(circle at 50% 12%, #a8e0ff 0%, #68bdf4 50%, #3098e0 100%) !important;">
+    <!-- Marca de agua de fondo con el Escudo Oficial de Salud Guanajuato (Imagen 2 como fondo) -->
+    <div class="bg-escudo-watermark"></div>
+
+    <div class="host-container">
+        <!-- Top Navigation Bar -->
+        <header class="host-header" id="hostHeader">
+            <a href="/" style="display: flex; align-items: center; text-decoration: none;" title="DVEEEyR - Volver al Inicio">
+                <img src="/static/img/header_dveeeyr.jpg" alt="DVEEEyR - Dirección de Vigilancia Epidemiológica" class="nav-title-banner" style="height: 40px; width: auto; max-width: 125px; aspect-ratio: 807 / 334; object-fit: contain; border: 2px solid #ffffff;">
+            </a>
+
+            <!-- PIN Display -->
+            <div class="pin-display-badge">
+                <span class="pin-label">PIN:</span>
+                <span id="pinDisplay">----</span>
+            </div>
+
+            <div class="header-controls">
+                <select id="quizSelector" class="form-select" style="max-width: 250px; padding: 8px 12px; font-weight: 700; background: rgba(0, 32, 85, 0.85); color: #fff; border: 1px solid var(--border-glass); border-radius: var(--radius-md);"></select>
+                <a href="/editor" class="btn-kahoot btn-white" style="padding: 8px 14px; font-size: 0.95rem; text-decoration: none;" title="Crear y editar preguntas">
+                    ✏️ Crear Preguntas
+                </a>
+                <button id="addBotsBtn" class="btn-kahoot btn-gold" style="padding: 8px 16px; font-size: 0.95rem;" title="Simular 200+ jugadores virtuales para probar la carga">
+                    ⚡ +200 Bots
+                </button>
+                <button id="serverConfigBtn" class="btn-kahoot btn-white" style="padding: 8px 12px; font-size: 0.9rem;" title="Configurar URL del servidor backend">
+                    🌐 Servidor
+                </button>
+                <button id="audioToggleBtn" class="icon-btn" title="Activar/Silenciar Música">🔊</button>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.6" style="width: 75px; accent-color: #1a75ff;" title="Volumen">
+            </div>
+        </header>
+
+        <!-- Banner de alerta de conexión cuando está en Netlify sin backend activo -->
+        <div id="connectionAlertBanner" style="display: none; flex-direction: column; background: rgba(0, 32, 85, 0.96); border: 2px solid #ffb300; border-radius: var(--radius-md); padding: 16px 22px; margin-bottom: 20px; gap: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.8rem;">⚠️</span>
+                    <div>
+                        <strong style="color: #ffb300; font-size: 1.05rem; display: block;">Esperando conexión con el servidor del juego (WebSocket)...</strong>
+                        <span style="font-size: 0.88rem; color: #e1f0fa;">Tu web está en Netlify, pero necesita conectarse a tu backend de Python (en Render, Railway o local).</span>
+                    </div>
+                </div>
+                <button id="bannerConfigServerBtn" class="btn-kahoot btn-gold" style="padding: 8px 18px; font-size: 0.95rem;">
+                    ⚙️ Configurar Servidor
+                </button>
+            </div>
+
+            <!-- Panel de configuración rápida inline -->
+            <div id="serverConfigInlinePanel" style="display: flex; flex-direction: column; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(255,179,0,0.3);">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                    <label style="font-weight: 700; font-size: 0.9rem; color: #ffd166;">URL de tu Backend:</label>
+                    <input type="text" id="inlineServerInput" placeholder="https://tu-backend.onrender.com" style="flex: 1; min-width: 280px; padding: 10px 14px; border-radius: 8px; border: 2px solid #52abeb; background: #ffffff; color: #002880; font-weight: 700; font-size: 0.95rem; outline: none;">
+                    <button id="inlineSaveServerBtn" class="btn-kahoot btn-blue" style="padding: 10px 22px; font-size: 0.95rem;">
+                        ⚡ Conectar
+                    </button>
+                    <button id="inlineLocalhostBtn" class="btn-kahoot btn-white" style="padding: 10px 16px; font-size: 0.85rem;" title="Usar servidor local en esta PC">
+                        💻 Localhost:8000
+                    </button>
+                </div>
+                <div style="font-size: 0.82rem; color: #b3d7f2; line-height: 1.4;">
+                    💡 <strong>¿No tienes backend en la nube aún?</strong> Despliega este proyecto gratis en <a href="https://render.com" target="_blank" style="color: #ffd166; font-weight: 800; text-decoration: underline;">Render.com</a> (toma 1 minuto con el archivo <code>render.yaml</code> ya incluido) y pega aquí el enlace generado.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 1: LOBBY ==================== -->
+        <main class="lobby-view" id="lobbyView">
+            <div class="join-info-card glass-panel">
+                <h2 style="font-family: 'Outfit'; font-size: 1.5rem; font-weight: 800;">
+                    ¡Escanea o ingresa para unirte!
+                </h2>
+                
+                <div class="qr-wrapper" id="qrCode"></div>
+
+                <div class="join-url-box" id="joinUrlText">
+                    Cargando URL...
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">
+                    Todos los participantes pueden unirse desde cualquier celular o PC conectados a la red.
+                </p>
+            </div>
+
+            <div class="players-lobby-card glass-panel">
+                <div class="lobby-top-bar">
+                    <h2 style="font-family: 'Outfit'; font-size: 1.8rem; font-weight: 900;">
+                        Participantes en Sala
+                    </h2>
+                    <div class="players-count-badge" id="playersCountText">
+                        0 Jugadores
+                    </div>
+                </div>
+
+                <!-- Grid of connected player chips -->
+                <div class="players-grid" id="playersGrid">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <div class="lobby-actions">
+                    <button id="startGameBtn" class="btn-kahoot btn-blue" style="font-size: 1.4rem; padding: 16px 42px;" disabled>
+                        ¡Iniciar Actividad!
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- ==================== VIEW 2: QUESTION ACTIVE & RESULTS ==================== -->
+        <section class="question-view" id="questionView" style="display: none;">
+            <div class="question-banner glass-panel">
+                <div class="question-step-badge" id="questionStepBadge">Pregunta 1 de 10</div>
+                <h1 class="question-title" id="questionTitle">¿Pregunta aquí?</h1>
+            </div>
+
+            <div class="question-stage">
+                <!-- Circular Countdown Timer -->
+                <div class="timer-container">
+                    <div class="timer-circle" id="timerCircle">20</div>
+                    <span style="margin-top: 8px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Segundos</span>
+                </div>
+
+                <!-- Media Showcase / Emoji -->
+                <div class="media-container" id="mediaContainer">
+                    🎯
+                </div>
+
+                <!-- Live Answer Counter -->
+                <div class="answers-counter-card glass-panel">
+                    <div class="counter-number" id="answersCounterNumber">0</div>
+                    <div class="counter-label">de <span id="answersCounterTotal">0</span> contestaron</div>
+                    <button id="showLeaderboardBtn" class="btn-kahoot btn-white" style="margin-top: 14px; font-size: 1rem; padding: 10px 18px; display: none;">
+                        Ver Marcador ➔
+                    </button>
+                    <button id="nextQuestionBtn" class="btn-kahoot btn-blue" style="margin-top: 14px; font-size: 1rem; padding: 10px 18px; display: none;">
+                        Siguiente ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- The 4 Kahoot Options -->
+            <div class="options-grid" id="optionsGrid">
+                <!-- Populated dynamically with Red ▲, Blue ◆, Yellow ●, Green ■ -->
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: LEADERBOARD ==================== -->
+        <section class="leaderboard-view glass-panel" id="leaderboardView" style="display: none;">
+            <h2 class="leaderboard-title">🏆 Tabla de Puntuaciones</h2>
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- Populated dynamically -->
+            </div>
+            <div style="text-align: center; margin-top: 24px;">
+                <button id="leaderboardNextBtn" class="btn-kahoot btn-blue" style="font-size: 1.3rem; padding: 16px 36px;">
+                    Siguiente Pregunta ➔
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 4: FINAL PODIUM ==================== -->
+        <section class="podium-view" id="podiumView" style="display: none;">
+            <h1 style="font-family: 'Outfit'; font-size: 3rem; font-weight: 900; text-align: center; margin-bottom: 8px;">
+                🎉 ¡Podio de Ganadores! 🎉
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem; font-weight: 700;">
+                Gran partida con más de 200 participantes compitiendo al mismo tiempo
+            </p>
+
+            <div class="podium-stage">
+                <!-- 2nd Place -->
+                <div class="podium-column podium-2">
+                    <div class="podium-avatar" id="p2Avatar">🥈</div>
+                    <div class="podium-name" id="p2Name">-</div>
+                    <div class="podium-score" id="p2Score">-</div>
+                    <div class="podium-block">2</div>
+                </div>
+
+                <!-- 1st Place (Center / Highest) -->
+                <div class="podium-column podium-1">
+                    <div class="podium-avatar" id="p1Avatar">👑</div>
+                    <div class="podium-name" id="p1Name">-</div>
+                    <div class="podium-score" id="p1Score">-</div>
+                    <div class="podium-block">1</div>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="podium-column podium-3">
+                    <div class="podium-avatar" id="p3Avatar">🥉</div>
+                    <div class="podium-name" id="p3Name">-</div>
+                    <div class="podium-score" id="p3Score">-</div>
+                    <div class="podium-block">3</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; display: flex; gap: 16px;">
+                <button id="playAgainBtn" class="btn-kahoot btn-white" style="font-size: 1.2rem;">
+                    🔄 Jugar Otra Partida
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/host.js"></script>
+</body>
+</html>

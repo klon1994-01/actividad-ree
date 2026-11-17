@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DVEEEyR - Secretaría de Salud de Guanajuato</title>
+    <link rel="stylesheet" href="/static/css/kahoot-theme.css?v=2026">
+    <script src="/static/js/config.js?v=2026"></script>
+    <style>
+        body {
+            background: #52abeb !important;
+            background: radial-gradient(circle at 50% 12%, #a8e0ff 0%, #68bdf4 50%, #3098e0 100%) !important;
+            background-attachment: fixed !important;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* FONDO: Escudo Oficial Salud Guanajuato 2024-2030 (Imagen 2 como fondo) */
+        .bg-escudo-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(580px, 85vw);
+            height: min(580px, 85vw);
+            background: url('/static/img/escudo_salud_gto.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.45));
+        }
+
+        .landing-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* TITULO: Imagen 1 DVEEEyR */
+        .main-title-banner {
+            width: 100%;
+            max-width: 620px;
+            height: auto;
+            aspect-ratio: 807 / 334;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 16px 45px rgba(0, 25, 70, 0.55), 0 0 35px rgba(255, 255, 255, 0.45);
+            border: 3px solid #ffffff;
+            margin: 0 auto 20px auto;
+            display: block;
+            transition: transform 0.25s ease;
+        }
+
+        .main-title-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 55px rgba(0, 25, 70, 0.65), 0 0 45px rgba(255, 255, 255, 0.65);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 20, 60, 0.8);
+            max-width: 720px;
+            margin: 0 auto 36px auto;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            background: rgba(0, 32, 85, 0.92) !important;
+            border: 2px solid rgba(255, 255, 255, 0.45) !important;
+            border-radius: var(--radius-lg);
+            padding: 34px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.25s ease;
+            box-shadow: 0 16px 40px rgba(0, 20, 60, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            border-color: #ffffff !important;
+            box-shadow: 0 22px 50px rgba(0, 20, 60, 0.65);
+        }
+
+        .card-icon {
+            font-size: 3.2rem;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #e1f0fa;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .features-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            max-width: 900px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #ffffff;
+            padding: 12px 26px;
+            background: rgba(0, 32, 85, 0.88);
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 20, 60, 0.35);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-item span {
+            font-size: 1.1rem;
+        }
+
+        /* ===== OPTIMIZACIÓN MÓVIL (CELULARES) ===== */
+        @media (max-width: 640px) {
+            .landing-container {
+                padding: 24px 14px !important;
+                justify-content: flex-start !important;
+            }
+            .main-title-banner {
+                max-width: 95% !important;
+                margin-bottom: 14px !important;
+            }
+            .hero-subtitle {
+                font-size: 0.92rem !important;
+                margin-bottom: 24px !important;
+                line-height: 1.45 !important;
+            }
+            .actions-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+                margin-bottom: 24px !important;
+            }
+            .action-card {
+                padding: 20px 16px !important;
+                gap: 12px !important;
+            }
+            .card-icon {
+                font-size: 2.3rem !important;
+            }
+            .card-title {
+                font-size: 1.35rem !important;
+            }
+            .card-desc {
+                font-size: 0.88rem !important;
+                line-height: 1.35 !important;
+            }
+            .features-row {
+                border-radius: var(--radius-md) !important;
+                padding: 14px 16px !important;
+                gap: 10px !important;
+                font-size: 0.82rem !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
+    </style>
+</head>
+<body style="background: radial-gradient(circle at 50% 12%, #a8e0ff 0%, #68bdf4 50%, #3098e0 100%) !important;">
+    <!-- IMAGEN 2: FONDO DE PANTALLA (Escudo de Salud Guanajuato 2024-2030) -->
+    <div class="bg-escudo-watermark"></div>
+
+    <main class="landing-container">
+        <!-- IMAGEN 1: TÍTULO PRINCIPAL (Banner 3D DVEEEyR) -->
+        <img src="/static/img/header_dveeeyr.jpg" alt="DVEEEyR - Dirección de Vigilancia Epidemiológica, Enfermedades Emergentes y Reemergentes" class="main-title-banner">
+
+        <p class="hero-subtitle">
+            Plataforma Interactiva de Capacitación y Evaluación &bull; Secretaría de Salud de Guanajuato &bull; Actividad REE (+200 Participantes)
+        </p>
+
+        <!-- ACCIONES PRINCIPALES (SIN ELEMENTOS ENCIMADOS) -->
+        <div class="actions-grid">
+            <!-- 1. Entrar a Participar -->
+            <a href="/play" class="action-card" id="joinGameCard">
+                <span class="card-icon">📱</span>
+                <span class="card-title">Entrar a Participar</span>
+                <p class="card-desc">Ingresa el PIN de la sesión desde tu celular o tablet para responder los reactivos en tiempo real.</p>
+                <div class="btn-kahoot btn-blue" style="width: 100%;">¡Ingresar PIN!</div>
+            </a>
+
+            <!-- 2. Pantalla del Presentador -->
+            <a href="/host" class="action-card" id="hostGameCard">
+                <span class="card-icon">🖥️</span>
+                <span class="card-title">Modo Presentador</span>
+                <p class="card-desc">Proyecta la sala en la pantalla principal o auditorio, genera el Código QR gigante y conduce la actividad.</p>
+                <div class="btn-kahoot btn-white" style="width: 100%;">Iniciar Partida</div>
+            </a>
+
+            <!-- 3. Creador y Editor de Reactivos -->
+            <a href="/editor" class="action-card" id="editorGameCard">
+                <span class="card-icon">✏️</span>
+                <span class="card-title">Editor de Preguntas</span>
+                <p class="card-desc">Diseña y edita los reactivos de salud y epidemiología, define opciones correctas, tiempos y puntos.</p>
+                <div class="btn-kahoot btn-cyan" style="width: 100%;">Crear / Editar</div>
+            </a>
+        </div>
+
+        <div class="features-row">
+            <div class="feature-item"><span>🏥</span> Secretaría de Salud de Guanajuato</div>
+            <div class="feature-item"><span>⚡</span> Capacidad +200 Participantes Simultáneos</div>
+            <div class="feature-item"><span>📶</span> Acceso Directo por Código QR</div>
+            <div class="feature-item"><span>📊</span> Evaluación y Podio en Vivo</div>
+        </div>
+    </main>
+</body>
+</html>

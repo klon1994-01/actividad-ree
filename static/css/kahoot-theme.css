@@ -1,0 +1,465 @@
+/* ==========================================================================
+   SISTEMA DE DISEÑO OFICIAL - FONDO AZUL CIELO (SKY BLUE)
+   DVEEEyR - Dirección de Vigilancia Epidemiológica, Enfermedades Emergentes y Reemergentes
+   SECRETARÍA DE SALUD • GOBIERNO DEL ESTADO DE GUANAJUATO 2024-2030
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+:root {
+    /* ===== PALETA ARMONIZADA AZUL CIELO & SALUD GUANAJUATO ===== */
+    /* Azul Cielo Oficial (Sky Blue) */
+    --color-sky-light: #8ad5ff;
+    --color-sky: #52abeb;
+    --color-sky-medium: #3090d4;
+    --color-sky-deep: #247cb8;
+    --color-sky-glow: rgba(138, 213, 255, 0.5);
+
+    /* Azules Corporativos de Contraste para Tarjetas y Textos */
+    --color-dveeeyr-deep: #00183d;
+    --color-dveeeyr-dark: #002254;
+    --color-dveeeyr-blue: #003380;
+    --color-dveeeyr-primary: #0056b3;
+    --color-dveeeyr-electric: #0077e6;
+
+    --color-gto-navy: #004885;
+    --color-gto-ice: #e3f2fd;
+    --color-gto-cyan: #00bcd4;
+    --color-gto-gold: #ffb300;
+
+    /* Aliases para compatibilidad */
+    --ssg-navy-deep: var(--color-dveeeyr-deep);
+    --ssg-navy: var(--color-dveeeyr-dark);
+    --ssg-navy-surface: var(--color-dveeeyr-blue);
+    --ssg-blue-primary: var(--color-dveeeyr-primary);
+    --ssg-blue-light: var(--color-sky);
+    --ssg-cyan: var(--color-sky-light);
+    --ssg-gold: var(--color-gto-gold);
+
+    --kahoot-purple-dark: var(--color-dveeeyr-deep);
+    --kahoot-purple: var(--color-dveeeyr-primary);
+    --kahoot-purple-light: var(--color-sky);
+    --kahoot-purple-glow: var(--color-sky-glow);
+
+    /* Las 4 opciones clásicas de respuesta (alto contraste) */
+    --color-red: #e52d3d;
+    --color-red-dark: #b81725;
+    --color-red-shadow: #7e0e18;
+
+    --color-blue: #0066ff;
+    --color-blue-dark: #004cc4;
+    --color-blue-shadow: #002d7a;
+
+    --color-yellow: #e69500;
+    --color-yellow-dark: #b87700;
+    --color-yellow-shadow: #805300;
+
+    --color-green: #00965e;
+    --color-green-dark: #007348;
+    --color-green-shadow: #004d30;
+
+    /* Neutros y Superficies */
+    --text-white: #ffffff;
+    --text-muted: #e1f0fa;
+    --text-dim: #b3d7f2;
+    --bg-dark-card: rgba(0, 34, 84, 0.88);
+    --bg-dark-glass: rgba(0, 28, 72, 0.90);
+    --bg-header-glass: rgba(0, 24, 60, 0.94);
+    --border-glass: rgba(138, 213, 255, 0.35);
+    --border-glass-bright: rgba(138, 213, 255, 0.6);
+
+    /* Radii & Shadows */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-pill: 9999px;
+
+    --shadow-3d-red: 0 6px 0 var(--color-red-shadow);
+    --shadow-3d-blue: 0 6px 0 var(--color-blue-shadow);
+    --shadow-3d-yellow: 0 6px 0 var(--color-yellow-shadow);
+    --shadow-3d-green: 0 6px 0 var(--color-green-shadow);
+    --shadow-panel: 0 16px 45px rgba(0, 18, 50, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+/* ==================== FONDO AZUL CIELO (SKY BLUE) EN TODO EL PROYECTO ==================== */
+body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 50% 12%, #8ad5ff 0%, #52abeb 45%, #247cb8 100%);
+    background-attachment: fixed;
+    color: var(--text-white);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Marca de Agua Centrada del Escudo Salud Guanajuato 2024-2030 */
+.bg-escudo-watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(520px, 80vw, 68vh);
+    height: min(520px, 80vw, 68vh);
+    aspect-ratio: 1 / 1;
+    background-image: url('../img/escudo_salud_gto.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    opacity: 0.13;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.45));
+}
+
+/* ==================== IMAGEN 1: TÍTULO DVEEEyR ==================== */
+.main-title-banner {
+    width: 100%;
+    max-width: 580px;
+    height: auto;
+    aspect-ratio: 807 / 334;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 45px rgba(0, 20, 60, 0.55), 0 0 30px rgba(255, 255, 255, 0.4);
+    border: 3px solid rgba(255, 255, 255, 0.7);
+    margin: 0 auto 16px auto;
+    display: block;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.main-title-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 55px rgba(0, 20, 60, 0.65), 0 0 45px rgba(255, 255, 255, 0.6);
+}
+
+.nav-title-banner {
+    height: 42px;
+    width: auto;
+    max-width: 190px;
+    aspect-ratio: 807 / 334;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 20, 60, 0.35);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    display: block;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-title-banner:hover {
+    transform: scale(1.02);
+    border-color: #ffffff;
+}
+
+.player-title-banner {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+    aspect-ratio: 807 / 334;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0, 20, 60, 0.45), 0 0 18px rgba(255, 255, 255, 0.35);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    margin: 0 auto 14px auto;
+    display: block;
+}
+
+/* Partículas decorativas de fondo sintonizadas en blanco sobre azul cielo */
+.bg-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shape-particle {
+    position: absolute;
+    opacity: 0.12;
+    animation: floatShape 24s infinite linear;
+    color: #ffffff;
+}
+
+@keyframes floatShape {
+    0% { transform: translateY(105vh) rotate(0deg) scale(0.8); }
+    100% { transform: translateY(-15vh) rotate(360deg) scale(1.1); }
+}
+
+/* ==================== BARRA INSTITUCIONAL SUPERIOR ==================== */
+.institutional-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 980px;
+    padding: 10px 22px;
+    margin-bottom: 24px;
+    background: rgba(0, 26, 68, 0.88);
+    border: 1px solid var(--border-glass-bright);
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 6px 20px rgba(0, 20, 50, 0.35);
+}
+
+.institutional-logos-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-escudo-header {
+    height: 44px;
+    width: auto;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.institutional-entity-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border-left: 1.5px solid rgba(138, 213, 255, 0.4);
+    padding-left: 12px;
+}
+
+.institutional-entity-text strong {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.institutional-entity-text span {
+    font-size: 0.72rem;
+    color: var(--color-sky-light);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.institutional-tag-right {
+    background: rgba(138, 213, 255, 0.2);
+    border: 1px solid var(--border-glass-bright);
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+}
+
+/* Badge pequeño */
+.brand-ssg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 26, 68, 0.85);
+    border: 1px solid var(--border-glass-bright);
+    padding: 6px 18px;
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 20, 50, 0.3);
+}
+
+.ssg-badge-text {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.6px;
+}
+
+/* ==================== SISTEMA DE BOTONES OFICIALES ==================== */
+.btn-kahoot {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
+    letter-spacing: 0.3px;
+}
+
+.btn-kahoot:hover {
+    filter: brightness(1.1);
+}
+
+.btn-kahoot:active {
+    transform: translateY(4px) !important;
+}
+
+/* 1. Botón Principal: Azul Real DVEEEyR */
+.btn-blue, .btn-magenta, .btn-purple, .btn-primary {
+    background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002b66 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 #001f4d;
+    border: 1px solid rgba(138, 213, 255, 0.3);
+}
+.btn-blue:active, .btn-magenta:active, .btn-purple:active {
+    box-shadow: 0 2px 0 #001f4d !important;
+}
+
+/* 2. Botón Secundario: Blanco Puro con Texto Azul */
+.btn-white {
+    background: #ffffff;
+    color: #003380;
+    box-shadow: 0 6px 0 #689fc7;
+    border: 1px solid rgba(0, 40, 128, 0.2);
+    font-weight: 800;
+}
+.btn-white:active {
+    box-shadow: 0 2px 0 #689fc7 !important;
+}
+
+/* 3. Botón de Acento: Cian / Celeste */
+.btn-cyan {
+    background: linear-gradient(135deg, #00a8cc 0%, #007799 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 #004a60;
+}
+.btn-cyan:active {
+    box-shadow: 0 2px 0 #004a60 !important;
+}
+
+/* 4. Botón de Confirmación: Verde Salud */
+.btn-green {
+    background: linear-gradient(135deg, #00b074 0%, #008754 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 #004d30;
+}
+.btn-green:active {
+    box-shadow: 0 2px 0 #004d30 !important;
+}
+
+/* 5. Botón Dorado: Moderación / Simulación */
+.btn-gold, .btn-yellow {
+    background: linear-gradient(135deg, #ffb300 0%, #d48800 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 #8c5800;
+    font-weight: 900;
+}
+.btn-gold:active, .btn-yellow:active {
+    box-shadow: 0 2px 0 #8c5800 !important;
+}
+
+/* 6. Botón Rojo: Alerta */
+.btn-red {
+    background: linear-gradient(135deg, #ff3849 0%, #d92534 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 0 #730d16;
+}
+.btn-red:active {
+    box-shadow: 0 2px 0 #730d16 !important;
+}
+
+/* ==================== PANELES DE CRISTAL (GLASSMORPHIC) ==================== */
+.glass-panel {
+    background: var(--bg-dark-glass);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border-glass-bright);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+}
+
+/* Símbolos y Opciones Geométricas */
+.shape-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.card-red {
+    background: var(--color-red);
+    box-shadow: var(--shadow-3d-red);
+}
+
+.card-blue {
+    background: var(--color-blue);
+    box-shadow: var(--shadow-3d-blue);
+}
+
+.card-yellow {
+    background: var(--color-yellow);
+    box-shadow: var(--shadow-3d-yellow);
+}
+
+.card-green {
+    background: var(--color-green);
+    box-shadow: var(--shadow-3d-green);
+}
+
+/* Botones de Control y Sonido */
+.icon-btn {
+    background: rgba(0, 26, 68, 0.8);
+    border: 1px solid var(--border-glass-bright);
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(0, 102, 204, 0.6);
+    border-color: #ffffff;
+    transform: scale(1.06);
+    box-shadow: 0 0 14px var(--color-sky-glow);
+}
+
+/* Animaciones */
+@keyframes popIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    80% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(138, 213, 255, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(138, 213, 255, 0.7); }
+}
+
+.animate-pop {
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Scrollbars Institucionales */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 20, 50, 0.3);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(82, 171, 235, 0.5);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(82, 171, 235, 0.8);
+}

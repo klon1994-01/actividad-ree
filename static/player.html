@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secretaría de Salud de Guanajuato - Participante</title>
+    <link rel="stylesheet" href="/static/css/kahoot-theme.css?v=2026">
+    <link rel="stylesheet" href="/static/css/player.css?v=2026">
+    <script src="/static/lib/confetti.min.js"></script>
+    <script src="/static/lib/peerjs.min.js"></script>
+    <script src="/static/js/audio.js"></script>
+    <script src="/static/js/config.js?v=2026"></script>
+    <script src="/static/js/peer-engine.js?v=2026"></script>
+</head>
+<body style="background: radial-gradient(circle at 50% 12%, #a8e0ff 0%, #68bdf4 50%, #3098e0 100%) !important;">
+    <!-- Marca de agua de fondo con el Escudo Oficial de Salud Guanajuato (Imagen 2 como fondo) -->
+    <div class="bg-escudo-watermark"></div>
+
+    <div class="player-app">
+        <!-- ==================== 1. JOIN SCREEN ==================== -->
+        <main class="join-container" id="joinScreen">
+            <!-- IMAGEN 1: TÍTULO OFICIAL DVEEEyR -->
+            <img src="/static/img/header_dveeeyr.jpg" alt="DVEEEyR - Dirección de Vigilancia Epidemiológica" class="player-title-banner" style="border: 3px solid #ffffff;">
+
+            <div class="brand-ssg-badge" style="margin-bottom: 24px;">
+                <span class="ssg-badge-text">Secretaría de Salud &bull; Actividad REE</span>
+            </div>
+
+            <form class="join-form-card" onsubmit="return false;">
+                <input type="text" id="pinInput" class="player-input" placeholder="PIN (4 dígitos)" inputmode="numeric" maxlength="4" autocomplete="off" autofocus>
+                
+                <input type="text" id="nameInput" class="player-input" placeholder="Tu Apodo / Nombre" maxlength="18" autocomplete="off">
+
+                <div class="avatar-selector-box">
+                    <p style="font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 6px;">Toca para cambiar tu avatar:</p>
+                    <div class="avatar-preview" id="avatarPreview" title="Cambiar avatar">🩺</div>
+                </div>
+
+                <div id="joinErrorMsg" style="color: #e21b3c; font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; min-height: 20px;"></div>
+
+                <button type="submit" id="joinSubmitBtn" class="btn-kahoot btn-player-submit">
+                    ¡Entrar!
+                </button>
+                <div style="margin-top: 14px; text-align: center;">
+                    <a href="javascript:void(0)" id="playerServerConfigLink" style="color: #6c757d; font-size: 0.8rem; text-decoration: none;">⚙️ Servidor</a>
+                </div>
+            </form>
+        </main>
+
+        <!-- ==================== 2. WAITING LOBBY ==================== -->
+        <section class="waiting-screen" id="waitingScreen" style="display: none;">
+            <div class="waiting-avatar" id="waitingPlayerAvatar">🚀</div>
+            <div class="waiting-name" id="waitingPlayerName">Jugador</div>
+
+            <div class="waiting-card">
+                <h2>¡Estás dentro!</h2>
+                <p style="font-size: 1.1rem; color: #ffd166; font-weight: 700;">
+                    ¿Ves tu nombre en la pantalla principal?
+                </p>
+                <div style="margin-top: 18px; font-size: 0.9rem; color: var(--text-muted);" id="waitingQuizTitle">
+                    Esperando a que el anfitrión inicie el juego...
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 3. GAME / ANSWER PAD (THE 4 CARDS) ==================== -->
+        <section class="player-game-view" id="gameScreen" style="display: none;">
+            <header class="player-top-status">
+                <img src="/static/img/header_dveeeyr.jpg" alt="DVEEEyR" style="height: 26px; width: auto; max-width: 70px; aspect-ratio: 807 / 334; object-fit: contain; border-radius: 4px; border: 1px solid var(--border-glass);">
+                <span id="playerQuestionNumber">1/10</span>
+                <span class="player-score-badge" id="playerScoreDisplay">0 pts</span>
+            </header>
+
+            <!-- 4 Tactile colored shape buttons -->
+            <div class="answers-pad" id="answersPad">
+                <!-- Populated dynamically: Red ▲, Blue ◆, Yellow ●, Green ■ -->
+            </div>
+        </section>
+
+        <!-- ==================== 4. ANSWER SENT / WAITING ==================== -->
+        <section class="answer-sent-view" id="answerSentScreen" style="display: none;">
+            <div class="pulse-spinner">✓</div>
+            <h2 style="font-family: 'Outfit'; font-size: 2.2rem; font-weight: 900; margin-bottom: 8px;">
+                ¡Respuesta Enviada!
+            </h2>
+            <p style="color: var(--text-muted); font-size: 1.15rem; font-weight: 700;">
+                Esperando a los demás participantes...
+            </p>
+        </section>
+
+        <!-- ==================== 5. RESULTS SCREEN ==================== -->
+        <section class="result-screen" id="resultScreen" style="display: none;">
+            <div class="result-icon" id="resultIcon">🎉</div>
+            <h2 class="result-title" id="resultTitle">¡Correcto!</h2>
+            <div class="points-awarded" id="pointsAwarded">+950 pts</div>
+            <div class="rank-streak-box">
+                <span id="resultStreak">🔥 Racha x2</span>
+                <span id="resultRank">Puesto #4</span>
+            </div>
+        </section>
+
+        <!-- ==================== 6. FINAL PODIUM / GAME OVER ==================== -->
+        <section class="waiting-screen" id="finalScreen" style="display: none;">
+            <div style="font-size: 5rem; margin-bottom: 16px;">🏆</div>
+            <h2 style="font-family: 'Outfit'; font-size: 2.5rem; font-weight: 900; margin-bottom: 8px;">
+                ¡Juego Terminado!
+            </h2>
+            <p id="finalRankText" style="font-size: 1.4rem; color: #ffd166; font-weight: 800; margin-bottom: 12px;">
+                Puesto #1 de 200 participantes
+            </p>
+            <div id="finalScoreText" class="points-awarded" style="display: inline-block;">
+                9,450 Puntos
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+[
+  {
+    "id": "ssg_epidemiologia_ree",
+    "title": "🏥 Vigilancia Epidemiológica y Salud Pública (SSG - REE)",
+    "description": "Evaluación interactiva sobre vigilancia epidemiológica, dengue, prevención y salud en Guanajuato.",
+    "questions": [
+      {
+        "question": "¿Cuál es el mosquito vector transmisor del virus del Dengue, Zika y Chikungunya?",
+        "emoji": "🦟",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Anopheles quadrimaculatus",
+          "Aedes aegypti",
+          "Culex quinquefasciatus",
+          "Lutzomyia longipalpis"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "¿Cuál es la estrategia comunitaria clave promovida en Guanajuato para eliminar criaderos de dengue?",
+        "emoji": "💧",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Lava, Tapa, Voltea y Tira",
+          "Cierra, Guarda, Cubre y Riega",
+          "Fumiga, Barre, Sacude y Quema",
+          "Pinta, Aísla, Ventila y Tapa"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "¿Cuál es un signo de alarma clave en un paciente sospechoso de Dengue?",
+        "emoji": "⚠️",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Cefalea leve matutina",
+          "Dolor abdominal intenso y continuo",
+          "Estornudos frecuentes",
+          "Dolor de garganta leve"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "¿Qué bacteria es el agente etiológico causante de la Tosferina?",
+        "emoji": "🔬",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Streptococcus pneumoniae",
+          "Haemophilus influenzae",
+          "Bordetella pertussis",
+          "Corynebacterium diphtheriae"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Verdadero o Falso: Los casos sospechosos de Dengue con signos de alarma requieren notificación epidemiológica inmediata.",
+        "emoji": "📋",
+        "time": 5,
+        "points": 10,
+        "type": "true_false",
+        "options": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": 0
+      }
+    ]
+  },
+  {
+    "id": "cultura_general",
+    "title": "🧠 Gran Desafío de Cultura General",
+    "description": "¡Demuestra quién sabe más en historia, geografía, ciencia y curiosidades!",
+    "questions": [
+      {
+        "question": "¿Cuál es el planeta más grande de nuestro sistema solar?",
+        "emoji": "🪐",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Marte",
+          "Saturno",
+          "Júpiter",
+          "Neptuno"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "¿Cuál es el país más extenso del mundo en superficie terrestre?",
+        "emoji": "🌍",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Canadá",
+          "China",
+          "Estados Unidos",
+          "Rusia"
+        ],
+        "correct": 3
+      },
+      {
+        "question": "quien fueee",
+        "emoji": "🎉",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "edgar",
+          "Opción 2",
+          "Opción 3",
+          "Opción 4"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "no te creo",
+        "emoji": "⭐",
+        "time": 5,
+        "points": 10,
+        "type": "multiple_choice",
+        "options": [
+          "Opción 1",
+          "si fue el",
+          "Opción 3",
+          "Opción 4"
+        ],
+        "correct": 1
+      }
+    ]
+  },
+  {
+    "id": "tecnologia_gaming",
+    "title": "💻 Desafío Geek & Tecnología",
+    "description": "Videojuegos, internet, programación y curiosidades del mundo digital.",
+    "questions": [
+      {
+        "question": "¿En qué año se fundó Google?",
+        "emoji": "🔍",
+        "time": 20,
+        "points": 1000,
+        "type": "multiple_choice",
+        "options": [
+          "1994",
+          "1996",
+          "1998",
+          "2001"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "¿Cuál es el lenguaje de programación nativo de los navegadores web?",
+        "emoji": "🌐",
+        "time": 15,
+        "points": 1000,
+        "type": "multiple_choice",
+        "options": [
+          "Python",
+          "Java",
+          "JavaScript",
+          "C++"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Verdadero o Falso: El primer videojuego de la historia fue Pong.",
+        "emoji": "🕹️",
+        "time": 15,
+        "points": 1000,
+        "type": "true_false",
+        "options": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "¿Qué significan las siglas 'HTML'?",
+        "emoji": "🏷️",
+        "time": 20,
+        "points": 1000,
+        "type": "multiple_choice",
+        "options": [
+          "HyperText Markup Language",
+          "High Tech Modern Language",
+          "Home Tool Markup Link",
+          "Hyperlink Text Multi Layer"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "¿Cuál es el videojuego más vendido de todos los tiempos?",
+        "emoji": "⛏️",
+        "time": 20,
+        "points": 1000,
+        "type": "multiple_choice",
+        "options": [
+          "Tetris",
+          "Grand Theft Auto V",
+          "Minecraft",
+          "Wii Sports"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "¿Cuántos bits hay en un byte?",
+        "emoji": "💾",
+        "time": 15,
+        "points": 1000,
+        "type": "multiple_choice",
+        "options": [
+          "4",
+          "8",
+          "16",
+          "32"
+        ],
+        "correct": 1
+      }
+    ]
+  }
+]

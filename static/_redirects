@@ -1,0 +1,7 @@
+/play          /player.html       200
+/host          /host.html         200
+/editor        /editor.html       200
+/create        /editor.html       200
+/static/*      /:splat            200
+/api/quizzes   /data/quizzes.json 200
+
